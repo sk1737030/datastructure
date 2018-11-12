@@ -1,6 +1,6 @@
 package ex_01;
 
-import java.util.ArrayDeque;
+import java.util.ArrayDeque; 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
@@ -51,7 +51,7 @@ public class WikiNodeIterable implements Iterable<Node> {
 
 			// otherwise pop the next Node off the stack
 			Node node = stack.pop();
-			//System.out.println(node);
+			// System.out.println(node);
 
 			// push the children onto the stack in reverse order
 			List<Node> nodes = new ArrayList<Node>(node.childNodes());
@@ -66,18 +66,6 @@ public class WikiNodeIterable implements Iterable<Node> {
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
-	}
-
-	@Override
-	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Node next() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

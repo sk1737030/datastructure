@@ -15,12 +15,11 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-
 /**
  * @author sk173 for studying search, dfs, with wikipedia
  * 
- *         parent Node -> element, textnode, datanode, comment 
- *         parent ArrayList-> elements
+ *         parent Node -> element, textnode, datanode, comment parent
+ *         ArrayList-> elements
  */
 
 public class WikiNodeExample {
@@ -36,18 +35,17 @@ public class WikiNodeExample {
 
 		// TODO: avoid selecting paragraphs from sidebars and boxouts
 		Elements paras = content.select("p");
-		Element firstPara = paras.get(0);
 
-		recursiveDFS(firstPara);
-		System.out.println();
+		Element firstPara = paras.get(1);
+
+		// recursiveDFS(firstPara); System.out.println();
 
 		iterativeDFS(firstPara);
-		System.out.println();
 
-		Iterable<Node> iter =  new WikiNodeIterable(firstPara);
+		Iterable<Node> iter = new WikiNodeIterable(firstPara);
 		for (Node node : iter) {
 			if (node instanceof TextNode) {
-				System.out.print(node);
+				//	System.out.print(node);
 			}
 		}
 	}
@@ -58,12 +56,11 @@ public class WikiNodeExample {
 
 		// if the stack is empty, we're done
 		while (!stack.isEmpty()) {
-
 			// otherwise pop the next Node off the stack
 			Node node = stack.pop();
 			if (node instanceof TextNode) {
-				System.out.print(node);
-			}
+				System.out.println(node);
+			} 
 
 			// push the children onto the stack in reverse order
 			List<Node> nodes = new ArrayList<Node>(node.childNodes());
@@ -77,7 +74,7 @@ public class WikiNodeExample {
 
 	private static void recursiveDFS(Node node) {
 		if (node instanceof TextNode) {
-			System.out.print(node);
+			//	System.out.print(node);
 		}
 		for (Node child : node.childNodes()) {
 			recursiveDFS(child);
