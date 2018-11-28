@@ -1,5 +1,8 @@
 package ex_02;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.sameInstance;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -137,7 +140,7 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		// TODO: FILL THIS IN!
 		Node node = root;
 
-		return keySetHelper(set,root);
+		return keySetHelper(set, root);
 
 	}
 
@@ -206,8 +209,84 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V remove(Object key) {
-		// OPTIONAL TODO: FILL THIS IN!
-		throw new UnsupportedOperationException();
+		// OPTIONAL TODO: FILL THIS IN!	
+		
+		Node node = findNode(key);
+		if(node == null)
+			throw new NullPointerException();
+		Node minNode = null;
+		Node prenode = findPreNode(key);
+		V oldValue = node.value;
+		if (node.left == null && node.right == null) {
+			if (prenode.right == node) {
+				prenode.right = minNode;
+			} else {
+				prenode.left = minNode;
+			}
+
+			return oldValue;
+		}
+		//왼쪽노드
+		if (node.left != null && node.right == null) {
+			prenode.left = node.left;
+			return oldValue;
+		}
+		if (node == root) {
+			root = findNode_min(node.right);
+			return oldValue;
+		}
+		//오른쪽만 있을때
+		if (node.right != null && node.left == null) {
+			prenode.right = node.right;
+			return oldValue;
+		}
+		
+		//왼쪽 오른쪾 다있을떄
+		
+		if (prenode.right == node) {
+			prenode.right = findNode_min(node.right);
+		} else {
+			prenode.left = findNode_min(node.right);
+		}
+		return oldValue;
+
+	}
+
+	private MyTreeMap<K, V>.Node findPreNode(Object key) {
+		// TODO Auto-generated method stub
+		// something to make the compiler happy
+		Node preNode = null;
+		@SuppressWarnings("unchecked")
+		Comparable<? super K> k = (Comparable<? super K>) key;
+		// 인수로 받은 문자열이 사전 순서 상 앞에 있다면 결과는 음수가 나오고 사전 순서 상 뒤에 있다면 양의 정수.
+		// TODO: FILL THIS IN!
+		Node findNode = root;
+		while (true) {
+			if (findNode == null || findNode.key.equals(key))
+				return preNode;
+
+			else if (k.compareTo(findNode.key) < 0) {
+				preNode = findNode;
+				findNode = findNode.left;
+			} else {
+				preNode = findNode;
+				findNode = findNode.right;
+			}
+
+		}
+	}
+
+	private MyTreeMap<K, V>.Node findNode_min(MyTreeMap<K, V>.Node node) {
+		// TODO Auto-generated method stub
+		Node preNode = node;
+		while (node.left != null) {
+			preNode = node;
+			node = node.left;
+		}
+		if (node.right != null) {
+			preNode.left = node.right;
+		}
+		return node;
 	}
 
 	@Override
@@ -238,8 +317,11 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		Map<String, Integer> map = new MyTreeMap<String, Integer>();
 		map.put("Word1", 1);
 		map.put("Word2", 2);
-		Integer value = map.get("Word1");
-		System.out.println(value);
+		map.put("Word3", 3);
+		map.put("Word4", 4);
+
+		map.remove("Word2");
+		map.remove("word3");
 
 		for (String key : map.keySet()) {
 			System.out.println(key + ", " + map.get(key));
