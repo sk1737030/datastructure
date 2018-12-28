@@ -210,9 +210,9 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	@Override
 	public V remove(Object key) {
 		// OPTIONAL TODO: FILL THIS IN!	
-		
+
 		Node node = findNode(key);
-		if(node == null)
+		if (node == null)
 			throw new NullPointerException();
 		Node minNode = null;
 		Node prenode = findPreNode(key);
@@ -226,23 +226,24 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
 			return oldValue;
 		}
+		if (node == root) {
+			root = findNode_min(node.right);
+			return oldValue;
+		}
 		//왼쪽노드
 		if (node.left != null && node.right == null) {
 			prenode.left = node.left;
 			return oldValue;
 		}
-		if (node == root) {
-			root = findNode_min(node.right);
-			return oldValue;
-		}
+
 		//오른쪽만 있을때
 		if (node.right != null && node.left == null) {
 			prenode.right = node.right;
 			return oldValue;
 		}
-		
+
 		//왼쪽 오른쪾 다있을떄
-		
+
 		if (prenode.right == node) {
 			prenode.right = findNode_min(node.right);
 		} else {
@@ -279,6 +280,9 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	private MyTreeMap<K, V>.Node findNode_min(MyTreeMap<K, V>.Node node) {
 		// TODO Auto-generated method stub
 		Node preNode = node;
+		if(node.left == null) {
+			return node;
+		}
 		while (node.left != null) {
 			preNode = node;
 			node = node.left;
@@ -319,9 +323,9 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		map.put("Word2", 2);
 		map.put("Word3", 3);
 		map.put("Word4", 4);
-
-		map.remove("Word2");
-		map.remove("word3");
+		map.put("Word0", 0);
+		map.remove("Word4");
+		map.remove("Word3");
 
 		for (String key : map.keySet()) {
 			System.out.println(key + ", " + map.get(key));

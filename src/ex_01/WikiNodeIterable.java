@@ -37,7 +37,7 @@ public class WikiNodeIterable implements Iterable<Node> {
 			stack.push(root);
 		}
 
-		@Override
+		@Override 
 		public boolean hasNext() {
 			return !stack.isEmpty();
 		}
@@ -54,6 +54,7 @@ public class WikiNodeIterable implements Iterable<Node> {
 			// System.out.println(node);
 
 			// push the children onto the stack in reverse order
+			//node의 childnodes 들을 list형태로 만들고 reverse 시킴.
 			List<Node> nodes = new ArrayList<Node>(node.childNodes());
 			Collections.reverse(nodes);
 			for (Node child : nodes) {

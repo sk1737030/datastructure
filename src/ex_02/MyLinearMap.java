@@ -178,7 +178,7 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 		map.put("Word2", 2);
 		Integer value = map.get("Word1");
 		System.out.println(value);
-
+		
 		for (String key : map.keySet()) {
 			System.out.println(key + ", " + map.get(key));
 		}

@@ -37,8 +37,8 @@ public class TermCounter {
 	public void processElements(Elements paragraphs) {
 		for (Node node : paragraphs) {
 			processTree(node);
-		}
-	}
+		}	
+	} 
 
 	/**
 	 * Finds TextNodes in a DOM tree and counts their words.
@@ -63,6 +63,8 @@ public class TermCounter {
 	 */
 	public void processText(String text) {
 		// replace punctuation with spaces, convert to lower case, and split on whitespace
+		//punctuatuon == µû¿ÈÇ¥
+
 		String[] array = text.replaceAll("\\pP", " ").toLowerCase().split("\\s+");
 
 		for (int i = 0; i < array.length; i++) {

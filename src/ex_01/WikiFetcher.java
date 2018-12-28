@@ -56,10 +56,11 @@ public class WikiFetcher {
 
 		// assemble the file name
 		String slash = File.separator;
-		String filename = "resources" + slash + realURL.getHost() + realURL.getPath();
-
+	 	String filename = "resources" + slash + realURL.getHost()+"wiki" + realURL.getPath()+".txt";
+	 	
 		// read the file
 		InputStream stream = WikiFetcher.class.getClassLoader().getResourceAsStream(filename);
+		
 		Document doc = Jsoup.parse(stream, "UTF-8", filename);
 
 		// parse the contents of the file
@@ -71,7 +72,7 @@ public class WikiFetcher {
 	public static void main(String[] args) throws IOException {
 		WikiFetcher wf = new WikiFetcher();
 		String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
-		Elements paragraphs = wf.fetchWikipedia(url);
+		Elements paragraphs = wf.readWikipedia(url);
 
 		for (Element paragraph : paragraphs) {
 			System.out.println(paragraph);
